@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Components | Elegant Home</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --dark-brown: #2C1B18;
+            --gold: #C5A059;
+            --off-white: #F9F7F2;
+            --deep-shadow: rgba(0, 0, 0, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+            --muted-text: #B0A8A6;
+            --dark-espresso: #5c4b41;
+            --navbar-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f6f1ef;
+            color: var(--off-white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.rtl {
+            direction: rtl;
+        }
+
+        /* Circular Gold Frame Navbar */
+        header {
+            background: #D4C5B9;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #B8A07A;
+            padding: 0;
+            object-fit: contain;
+            background-color: white;
+            display: block;
+        }
+
+        .brand-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--dark-brown);
+            line-height: 0.9;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--dark-espresso);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: #B8A07A;
+        }
+
+        /* Gold Pill Button */
+        .lang-switch {
+            background: var(--dark-brown);
+            color: var(--off-white);
+            border: 1px solid var(--dark-brown);
+            padding: 10px 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            background: transparent;
+            color: var(--dark-brown);
+        }
+
+        /* --- MOBILE MENU TOGGLE GRAPHIC --- */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger-icon {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--dark-espresso);
+            position: relative;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 3px;
+            background: var(--dark-espresso);
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-icon::before {
+            top: -8px;
+        }
+
+        .hamburger-icon::after {
+            bottom: -8px;
+        }
+
+       
+       /* RTL Navbar Flow Directions */
+          body.rtl .nav-container {
+              flex-direction: row;
+          }
+          body.rtl .nav-links {
+              flex-direction: row-reverse;
+          }
+
+        /* --- PORTFOLIO GALLERY STYLES --- */
+        .tabs-section {
+            padding: 60px 10%;
+            text-align: center;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #D4C5B9;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            transition: 0.4s;
+        }
+
+        .tab-btn.active,
+        .tab-btn:hover {
+            background: var(--gold);
+            color: var(--dark-brown);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-card {
+            background: var(--dark-brown);
+            border: 2px solid rgba(197, 160, 89, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 260px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- MOBILE RESPONSIVE MEDIA BREAKPOINTS --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .brand-text h2 {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .menu-toggle {
+                display: block;
+                z-index: 110;
+            }
+
+            /* Stack vertical dropdown menu container */
+            .nav-links {
+                display: none;
+                flex-direction: column !important;
+                /* Force vertical column flow */
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #D4C5B9;
+                padding: 30px 20px;
+                gap: 20px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                border-top: 1px solid rgba(0, 0, 0, 0.05);
+                text-align: center;
+                z-index: 99;
+            }
+
+            /* Keeps Arabic items stacked sequentially vertically like English without layout inversion */
+            body.rtl .nav-links {
+                flex-direction: column !important;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-item {
+                font-size: 1rem;
+                display: block;
+                padding: 5px 0;
+            }
+
+            .lang-switch {
+                width: 100%;
+                max-width: 200px;
+                margin: 5px auto 0 auto;
+            }
+
+            /* Main Content Adjustments */
+            .tabs-section {
+                padding: 40px 20px;
+            }
+
+            .tab-buttons {
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+                flex: 1 1 calc(50% - 10px);
+                min-width: 130px;
+            }
+
+            /* Adaptive Grid Scaling */
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .gallery-card {
+                padding: 6px;
+            }
+
+            .gallery-img {
+                height: 160px;
+            }
+        }
+
+        /* FLOATING SCROLL TO TOP BUTTON */
+        #scrollToTopBtn {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            z-index: 99999 !important;
+            /* Forces layout stacking over all grids and wrappers */
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-brown, #2C1B18);
+            color: var(--gold, #C5A059);
+            border: 2px solid var(--gold, #C5A059);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+
+            /* Animation States */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--gold, #C5A059);
+            color: var(--dark-brown, #2C1B18);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+        }
+
+        body.rtl #scrollToTopBtn {
+            right: auto !important;
+            left: 30px !important;
+        }
+
+        @media (max-width: 768px) {
+            #scrollToTopBtn {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 46px;
+                height: 46px;
+                font-size: 1.3rem;
+            }
+
+            body.rtl #scrollToTopBtn {
+                right: auto !important;
+                left: 20px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="scrollToTopBtn" aria-label="Scroll to top" title="Go to top">✦</button>
+
+    <header>
+        <nav class="nav-container">
+            <div class="brand">
+                <img src="logo.png" alt="Logo" class="nav-logo">
+                <div class="brand-text">
+                    <h2 id="brand-name">Elegant</h2>
+                    <h2 id="brand-sub">Home</h2>
+                </div>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <span class="hamburger-icon"></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-item" id="nav-home">Home</a></li>
+                <li><a href="components.html" class="nav-item active" id="nav-lighting">COMPONENTS</a></li>
+                <li><button class="lang-switch" id="langBtn">EN / AR</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="tabs-section">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openTab(event, 'electrical')" data-en="ELECTRICAL"
+                data-ar="أدوات كهربائية">ELECTRICAL</button>
+            <button class="tab-btn" onclick="openTab(event, 'exhaust')" data-en="EXHAUST FANS"
+                data-ar="مراوح شفط">EXHAUST FANS</button>
+        </div>
+
+        <div id="tab-electrical" class="tab-content active">
+            <div class="gallery-grid" id="grid-electrical"></div>
+        </div>
+        <div id="tab-exhaust" class="tab-content">
+            <div class="gallery-grid" id="grid-exhaust"></div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, id) {
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+            document.getElementById('tab-' + id).classList.add('active');
+        }
+
+        function generateGallery(containerId, folder, prefix, limit) {
+            const grid = document.getElementById(containerId);
+            grid.innerHTML = '';
+            for (let i = 1; i <= limit; i++) {
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+                const img = document.createElement('div');
+                img.className = 'gallery-img';
+                img.style.backgroundImage = `url('${folder}/${prefix}${i}.jpeg')`;
+                card.appendChild(img);
+                grid.appendChild(card);
+            }
+        }
+
+        // Initialize dynamic galleries with specified paths and loops
+        generateGallery('grid-electrical', 'Elect', 'elect', 31);
+        generateGallery('grid-exhaust', 'Fans', 'fan', 7);
+
+        // Language Switcher Logic
+        const langBtn = document.getElementById('langBtn');
+        let currentLang = 'en';
+
+        langBtn.addEventListener('click', () => {
+            currentLang = (currentLang === 'en') ? 'ar' : 'en';
+            document.body.classList.toggle('rtl', currentLang === 'ar');
+            langBtn.textContent = (currentLang === 'en') ? 'AR' : 'EN';
+
+            if (currentLang === 'ar') {
+                document.getElementById('brand-name').textContent = "الجينت";
+                document.getElementById('brand-sub').textContent = "هوم";
+                document.getElementById('nav-home').textContent = "الرئيسية";
+                document.getElementById('nav-lighting').textContent = "مشتمالات";
+            } else {
+                document.getElementById('brand-name').textContent = "Elegant";
+                document.getElementById('brand-sub').textContent = "Home";
+                document.getElementById('nav-home').textContent = "Home";
+                document.getElementById('nav-lighting').textContent = "COMPONENTS";
+            }
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const scrollBtn = document.getElementById("scrollToTopBtn");
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinks = document.getElementById("navLinks");
+
+            // Unified mobile menu toggle behavior across both languages
+            menuToggle.addEventListener("click", function (e) {
+                e.stopPropagation();
+                navLinks.classList.toggle("active");
+            });
+
+            // Symmetric outside click closure handling 
+            document.addEventListener("click", function (e) {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navLinks.classList.remove("active");
+                }
+            });
+
+            // Dynamic Window Scroll Monitoring
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 200 || window.pageYOffset > 200) {
+                    scrollBtn.classList.add("show");
+                } else {
+                    scrollBtn.classList.remove("show");
+                }
+            });
+
+            // Smooth native back-to-top transition layout scrolling
+            scrollBtn.addEventListener("click", function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
