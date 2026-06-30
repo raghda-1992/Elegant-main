@@ -1,0 +1,590 @@
+/* --- LUXURY DESIGN SYSTEM --- */
+:root {
+    /* Main Palette */
+    --luxury-beige: #D4C5B9;
+    --luxury-gold: #B8A07A;
+    --luxury-brown: #3D2817;
+    --soft-cream: #F5F2ED;
+    --white: #FFFFFF;
+
+    /* Functional Colors */
+    --dark-espresso: #5c4b41;
+    --bg-warm: #f5f2ed;
+
+    /* Typography */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Montserrat', sans-serif;
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- RESET & BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--soft-cream);
+    color: var(--luxury-brown);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* --- LUXURY HEADER & NAVBAR --- */
+header {
+    background: #D4C5B9;
+    padding: 15px 0;
+    box-shadow: 0 4px 20px rgba(61, 40, 23, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(184, 160, 122, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand & Logo Section */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+}
+
+/* --- Circular Frame with No Space --- */
+.nav-logo {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    /* Makes the frame circular */
+    border: 2.5px solid #B8A07A;
+    /* The luxury gold border */
+    padding: 0;
+    /* REMOVED space between image and border */
+    background-color: white;
+    /* Background behind the image */
+    object-fit: cover;
+    /* Ensures the image fills the entire circle */
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.brand-text h2 {
+    font-family: var(--font-serif);
+    color: var(--luxury-brown);
+    font-size: 1.6rem;
+    line-height: 0.9;
+}
+
+.brand-text h2 i {
+    font-weight: 400;
+    color: var(--luxury-gold);
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--luxury-brown);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    position: relative;
+    transition: var(--transition-smooth);
+    padding: 5px 0;
+}
+
+/* Smooth Underline Animation */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1.5px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--luxury-gold);
+    transition: var(--transition-smooth);
+}
+
+.nav-item:hover::after,
+.nav-item.active::after {
+    width: 100%;
+}
+
+.nav-item:hover {
+    color: var(--luxury-gold);
+}
+
+/* --- DROPDOWN MENU --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid var(--luxury-gold);
+    padding: 10px 0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdown-content a {
+    color: var(--luxury-brown);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.8rem;
+    transition: var(--transition-smooth);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--soft-cream);
+    color: var(--luxury-gold);
+    padding-left: 25px;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    background: linear-gradient(135deg, #ffffff 0%, var(--luxury-beige) 100%);
+    min-height: calc(100vh - 95px);
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 3.5fr;
+    gap: 60px;
+    align-items: stretch;
+}
+
+.hero-text h4 {
+    color: var(--luxury-gold);
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.hero-text h1 {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: var(--luxury-brown);
+}
+
+.hero-text h1 i {
+    font-weight: 400;
+    color: var(--luxury-gold);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: var(--luxury-brown);
+    max-width: 500px;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+/* --- LUXURY IMAGE FRAME --- */
+.hero-image-area {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.image-frame {
+    background: var(--luxury-gold);
+    padding: 20px;
+    box-shadow: 20px 20px 60px rgba(61, 40, 23, 0.15);
+    border: 1px solid rgba(184, 160, 122, 0.2);
+    transition: var(--transition-smooth);
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+
+.fit-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- LANGUAGE SWITCH BUTTON --- */
+.lang-switch {
+    background: var(--luxury-brown);
+    color: var(--white);
+    border: 1px solid var(--luxury-brown);
+    padding: 10px 24px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.lang-switch:hover {
+    background: transparent;
+    color: var(--luxury-brown);
+}
+
+/* --- About Section Styles --- */
+.about-section {
+    padding: 80px 0;
+    background-color: var(--dark-brown, #2C1B18);
+    /* Elegant light-tint canvas */
+    text-align: center;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: #D4C5B9;
+    margin-bottom: 15px;
+}
+
+.title-divider {
+    width: 60px;
+    height: 2px;
+    background-color: #c5a880;
+    /* Chic gold/bronze accent color */
+    margin: 0 auto 30px auto;
+}
+
+.about-content p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    font-weight: 300;
+}
+
+/* --- Footer Styles --- */
+footer {
+    padding: 60px 0 20px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #c5a880;
+}
+
+/* color: #D4C5B9; */
+.footer-col h4 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    color:#c5a880;
+}
+
+.footer-col p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--dark-brown, #2C1B18);
+    font-weight: bold;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.phone-num{
+    color: #555;
+    font-weight: bold;
+}
+
+.phone-link{
+    text-decoration: none;
+}
+.contact-list .icon {
+    margin-right: 10px;
+    color: #c5a880;
+}
+
+.whatsapp-link {
+    color: #25D366;
+    /* Elegant WhatsApp brand green */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.whatsapp-link:hover {
+    text-decoration: underline;
+}
+
+.social-links a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #fff;
+    background: #222;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+    border: 1px solid #333;
+}
+
+.social-links a:hover {
+    background: #c5a880;
+    color: #111;
+}
+
+.map-link-btn {
+    display: inline-block;
+    margin-top: 15px;
+    color: #c5a880;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid #c5a880;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+.map-link-btn:hover {
+    background-color: #c5a880;
+    color: #111;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* --- Support for Arabic Text Direction Changes --- */
+.lang-ar .about-section,
+.lang-ar footer {
+    text-align: right;
+}
+
+.lang-ar .title-divider {
+    margin: 0 auto 30px auto;
+    /* Keeps divider centered even in Arabic */
+}
+
+.lang-ar .contact-list .icon {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+.lang-ar .footer-container {
+    flex-direction: row-reverse;
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- RTL SUPPORT --- */
+
+
+[dir="rtl"] .hero-grid {
+    direction: rtl !important;
+    text-align: center !important;
+}
+
+[dir="rtl"] #welcome-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 0;
+}
+
+/* ==========================================================================
+   NEW RESPONSIVE MEDIA QUERIES FOR MOBILE PHONE RETENTION (BELOW 991px)
+   ================================================================base_url_config ========== */
+@media (max-width: 991px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: 40px 0;
+        min-height: auto;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        /* Drop side-by-side display */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 2.6rem;
+        /* Scale down oversized text safely */
+    }
+
+    .hero-text h4 {
+        white-space: normal;
+    }
+
+    .hero-text p {
+        margin: 0 auto 30px auto;
+    }
+
+    .hero-image-area {
+        justify-content: center;
+    }
+
+    .image-frame {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Footer adjustments */
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .contact-list li {
+        justify-content: center;
+    }
+
+    .video-social-menu {
+        justify-content: center;
+    }
+
+    /* Alignment adjustments for alternative languages on mobile */
+    .lang-ar .contact-list li {
+        justify-content: center;
+    }
+
+    [dir="rtl"] .hero-grid {
+        direction: ltr;
+        /* Keeps stacking order natural on mobile grids */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2.1rem;
+    }
+
+    .brand-text h2 {
+        font-size: 1.3rem;
+    }
+    
+    .hero-text h4 {
+     white-space: nowrap;
+    /* Forces the element to render strictly in one line */
+    font-size: 0.8rem;
+
+    }
+
+    .nav-logo {
+        width: 50px;
+        height: 50px;
+    }
+}
