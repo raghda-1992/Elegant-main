@@ -53,7 +53,7 @@ const content = {
 
 document.getElementById('langBtn').addEventListener('click', () => {
     currentLang = currentLang === 'en' ? 'ar' : 'en';
-
+ 
     // Set the page direction and class for styling
     document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
     document.body.className = currentLang === 'ar' ? 'lang-ar' : 'lang-en';
@@ -93,5 +93,6 @@ document.getElementById('langBtn').addEventListener('click', () => {
     document.getElementById('footer-address').innerText = content[currentLang].footerAddr;
     document.getElementById('footer-commercial-reg').innerText = content[currentLang].Commercial;
     document.getElementById('footer-national-id').innerText = content[currentLang].National;
+
     
 }); 

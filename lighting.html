@@ -87,7 +87,7 @@
             display: flex;
             align-items: center;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
             margin: 0;
         }
 
@@ -359,8 +359,37 @@
             </button>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-item" id="nav-home">Home</a></li>
-                <li><a href="lighting.html" class="nav-item active" id="nav-lighting">LIGHTING</a></li>
+                <li><a href="index.html" id="nav-home" class="nav-item">HOME</a></li>
+                <li><a href="finishing.html" id="nav-finishing" class="nav-item">FINISHING</a></li>
+            
+                <li class="dropdown">
+                    <a href="supplies&trading.html" id="nav-supplies" class="nav-item">SUPPLIES & TRADING
+                        <small>▾</small></a>
+                    <div class="dropdown-content">
+                        <a href="supplies&trading.html#sanshe" id="sub-san">Sanshe Sharm</a>
+                        <a href="supplies&trading.html#osa" id="sub-osa">Osa</a>
+                        <a href="supplies&trading.html#sharm" id="sub-sha">Sharm Electrical</a>
+                        <a href="supplies&trading.html#venus" id="sub-ven">Venus</a>
+                    </div>
+                </li>
+            
+                <li class="dropdown">
+                    <a href="lighting.html" id="nav-lighting" class="nav-item">LIGHTING <small>▾</small></a>
+                    <div class="dropdown-content">
+                        <a href="lighting.html#LED" id="sub-led">LED Lighting</a>
+                        <a href="lighting.html#Indor" id="sub-indor">Indor Lighting</a>
+                        <a href="lighting.html#Outdor" id="sub-outdor">Outdor Lighting</a>
+                    </div>
+                </li>
+            
+                <li class="dropdown">
+                    <a href="components.html" id="nav-components" class="nav-item">COMPONENTS <small>▾</small></a>
+                    <div class="dropdown-content">
+                        <a href="components.html#Electrical" id="sub-elec">Electrical</a>
+                        <a href="components.html#Exhaust Fans" id="sub-fans">Exhaust Fans</a>
+                    </div>
+                </li>
+            
                 <li><button class="lang-switch" id="langBtn">EN / AR</button></li>
             </ul>
         </nav>
@@ -423,16 +452,41 @@
             document.body.classList.toggle('rtl', currentLang === 'ar');
             langBtn.textContent = (currentLang === 'en') ? 'AR' : 'EN';
 
-            if (currentLang === 'ar') {
+             if (currentLang === 'ar') {
                 document.getElementById('brand-name').textContent = "الجينت";
                 document.getElementById('brand-sub').textContent = "هوم";
                 document.getElementById('nav-home').textContent = "الرئيسية";
+                document.getElementById('nav-supplies').textContent = " توريدات وتجارة ";
+                document.getElementById('sub-san').textContent = "سانشي";
+                document.getElementById('sub-osa').textContent = "أوسا";
+                document.getElementById('sub-sha').textContent = "شرم";
+                document.getElementById('sub-ven').textContent = "فينوس";
                 document.getElementById('nav-lighting').textContent = "الإضاءة";
+                document.getElementById('sub-led').textContent = "LED إضاءه";
+                document.getElementById('sub-indor').textContent = "إضاءه داخلية";
+                document.getElementById('sub-outdor').textContent = "إضاءه خارجية";
+                document.getElementById('nav-finishing').textContent = "تشطيبات";
+                document.getElementById('nav-components').textContent = "مشتمالات";
+                document.getElementById('sub-elec').textContent = "أدوات كهربائية";
+                document.getElementById('sub-fans').textContent = "مراوح شفط";
+
             } else {
                 document.getElementById('brand-name').textContent = "Elegant";
                 document.getElementById('brand-sub').textContent = "Home";
                 document.getElementById('nav-home').textContent = "Home";
+                document.getElementById('nav-supplies').textContent = "SUPPLIES & TRADING";
+                document.getElementById('sub-san').textContent = "Sanshe Sharm";
+                document.getElementById('sub-osa').textContent = "Osa";
+                document.getElementById('sub-sha').textContent = "Sharm Electrical";
+                document.getElementById('sub-ven').textContent = "Venus";
                 document.getElementById('nav-lighting').textContent = "LIGHTING";
+                document.getElementById('sub-led').textContent = "LED Lighting";
+                document.getElementById('sub-indor').textContent = "Indor Lighting";
+                document.getElementById('sub-outdor').textContent = "Outdor Lighting";
+                document.getElementById('nav-finishing').textContent = "FINISHING";
+                document.getElementById('nav-components').textContent = "COMPONENTS";
+                document.getElementById('sub-elec').textContent = "Electrical";
+                document.getElementById('sub-fans').textContent = "Exhaust Fans";
             }
 
             document.querySelectorAll('[data-en]').forEach(el => {
