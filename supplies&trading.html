@@ -9,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <style>
         :root {
@@ -162,12 +163,13 @@
         }
 
         /* RTL Navbar Flow Directions */
-         body.rtl .nav-container {
-             flex-direction: row;
-         }
-         body.rtl .nav-links {
-             flex-direction: row-reverse;
-         }
+        body.rtl .nav-container {
+            flex-direction: row;
+        }
+
+        body.rtl .nav-links {
+            flex-direction: row-reverse;
+        }
 
         /* --- REMAINDER OF PAGE CONTENT --- */
         .tabs-section {
@@ -222,6 +224,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .gallery-card:hover {
@@ -236,6 +239,84 @@
             background-repeat: no-repeat;
             background-position: center;
             border-radius: 3px;
+        }
+
+        /* --- SWIPER LIGHTBOX MODAL --- */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 27, 24, 0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .gallery-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: transparent;
+            border: none;
+            color: var(--gold);
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 10100;
+            transition: transform 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        body.rtl .modal-close {
+            right: auto;
+            left: 30px;
+        }
+
+        .swiper-container-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .gallery-swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .gallery-swiper .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 320px;
+            height: 400px;
+            border-radius: 10px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Slider Controls Styling */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--gold) !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--gold) !important;
         }
 
         /* Scroll to Top Button Styling */
@@ -283,7 +364,7 @@
             left: 30px;
         }
 
-    
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -385,7 +466,13 @@
             .gallery-img {
                 height: 160px;
             }
-             #scrollToTopBtn {
+
+            .gallery-swiper .swiper-slide {
+                width: 240px;
+                height: 320px;
+            }
+
+            #scrollToTopBtn {
                 bottom: 20px;
                 right: 20px;
                 width: 44px;
@@ -419,7 +506,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" id="nav-home" class="nav-item">HOME</a></li>
                 <li><a href="finishing.html" id="nav-finishing" class="nav-item">FINISHING</a></li>
-                
+
                 <li class="dropdown">
                     <a href="supplies&trading.html" id="nav-supplies" class="nav-item">SUPPLIES & TRADING
                         <small>▾</small></a>
@@ -430,7 +517,7 @@
                         <a href="supplies&trading.html#venus" id="sub-ven">Venus</a>
                     </div>
                 </li>
-                
+
                 <li class="dropdown">
                     <a href="lighting.html" id="nav-lighting" class="nav-item">LIGHTING <small>▾</small></a>
                     <div class="dropdown-content">
@@ -439,7 +526,7 @@
                         <a href="lighting.html#Outdor" id="sub-outdor">Outdor Lighting</a>
                     </div>
                 </li>
-                
+
                 <li class="dropdown">
                     <a href="components.html" id="nav-components" class="nav-item">COMPONENTS <small>▾</small></a>
                     <div class="dropdown-content">
@@ -475,10 +562,28 @@
             <div class="gallery-grid" id="grid-venus"></div>
         </div>
     </main>
-    
+
+    <div class="gallery-modal" id="galleryModal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="swiper-container-wrapper">
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper" id="modalSwiperWrapper">
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+
     <button id="scrollToTopBtn" aria-label="Scroll to top" title="Go to top">✦</button>
-    
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
+        let swiperInstance = null;
+        // Tracking active source lists to sync click matching
+        let currentGalleryImages = [];
+
         function openTab(evt, id) {
             document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
@@ -490,21 +595,99 @@
             const grid = document.getElementById(containerId);
             grid.innerHTML = '';
             for (let i = 1; i <= limit; i++) {
+                const imgUrl = `${folder}/${prefix}${i}.jpg`;
                 const card = document.createElement('div');
                 card.className = 'gallery-card';
+
+                // Save indices to target slider transitions perfectly when clicked
+                card.setAttribute('data-index', i - 1);
+                card.setAttribute('data-folder', folder);
+                card.setAttribute('data-prefix', prefix);
+                card.setAttribute('data-limit', limit);
+
                 const img = document.createElement('div');
                 img.className = 'gallery-img';
-                img.style.backgroundImage = `url('${folder}/${prefix}${i}.jpg')`;
+                img.style.backgroundImage = `url('${imgUrl}')`;
                 card.appendChild(img);
                 grid.appendChild(card);
+
+                // Open overlay slider on click matching target image selection
+                card.addEventListener('click', function () {
+                    openGallerySlider(
+                        parseInt(this.getAttribute('data-index')),
+                        this.getAttribute('data-folder'),
+                        this.getAttribute('data-prefix'),
+                        parseInt(this.getAttribute('data-limit'))
+                    );
+                });
             }
         }
 
         generateGallery('grid-sanshe', 'SansheImg', 'sanImg', 37);
-        // FIXED: Changed folder name from 'OsImg' to 'OsImg' (or whatever matches your local directory case exactly, usually 'OsImg' or 'osImg' depending on your folder creation)
         generateGallery('grid-osa', 'OsImg', 'osImg', 33);
         generateGallery('grid-sharm', 'ShImg', 'shImg', 30);
         generateGallery('grid-venus', 'VenImg', 'venImg', 30);
+
+        // Core Slider Generation logic mimicking layout rules exactly
+        function openGallerySlider(startIndex, folder, prefix, limit) {
+            const wrapper = document.getElementById('modalSwiperWrapper');
+            wrapper.innerHTML = '';
+
+            for (let i = 1; i <= limit; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.style.backgroundImage = `url('${folder}/${prefix}${i}.jpg')`;
+                wrapper.appendChild(slide);
+            }
+
+            const modal = document.getElementById('galleryModal');
+            modal.classList.add('active');
+
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true);
+            }
+
+            // Coverflow parameters mirroring specified video behaviors 
+            swiperInstance = new Swiper('.gallery-swiper', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                loop: true,
+                slidesPerView: 'auto',
+                initialSlide: startIndex,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // Adjust to targeted index after layout renders safely
+            setTimeout(() => {
+                swiperInstance.slideToLoop(startIndex, 0);
+            }, 50);
+        }
+
+        // Close gallery overlays securely 
+        document.getElementById('modalClose').addEventListener('click', () => {
+            document.getElementById('galleryModal').classList.remove('active');
+        });
+
+        document.getElementById('galleryModal').addEventListener('click', (e) => {
+            if (e.target.id === 'galleryModal') {
+                document.getElementById('galleryModal').classList.remove('active');
+            }
+        });
 
         const langBtn = document.getElementById('langBtn');
         let currentLang = 'en';
@@ -531,7 +714,7 @@
                 document.getElementById('nav-components').textContent = "مشتمالات";
                 document.getElementById('sub-elec').textContent = "أدوات كهربائية";
                 document.getElementById('sub-fans').textContent = "مراوح شفط";
-                
+
             } else {
                 document.getElementById('brand-name').textContent = "Elegant";
                 document.getElementById('brand-sub').textContent = "Home";
@@ -555,7 +738,7 @@
                 el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
             });
         });
-   
+
         document.addEventListener("DOMContentLoaded", function () {
             const scrollBtn = document.getElementById("scrollToTopBtn");
             const menuToggle = document.getElementById("menuToggle");

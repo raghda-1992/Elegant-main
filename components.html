@@ -9,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
@@ -41,7 +42,7 @@
 
         /* Circular Gold Frame Navbar */
         header {
-            background: var(--luxury-beige);
+            background: #D4C5B9;
             padding: 15px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
@@ -161,14 +162,15 @@
             bottom: -8px;
         }
 
-       
-       /* RTL Navbar Flow Directions */
-          body.rtl .nav-container {
-              flex-direction: row;
-          }
-          body.rtl .nav-links {
-              flex-direction: row-reverse;
-          }
+
+        /* RTL Navbar Flow Directions */
+        body.rtl .nav-container {
+            flex-direction: row;
+        }
+
+        body.rtl .nav-links {
+            flex-direction: row-reverse;
+        }
 
         /* --- PORTFOLIO GALLERY STYLES --- */
         .tabs-section {
@@ -223,6 +225,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .gallery-card:hover {
@@ -280,7 +283,7 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: var(--luxury-beige);
+                background: #D4C5B9;
                 padding: 30px 20px;
                 gap: 20px;
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -387,7 +390,121 @@
             left: 30px !important;
         }
 
-    
+        @media (max-width: 768px) {
+            #scrollToTopBtn {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 46px;
+                height: 46px;
+                font-size: 1.3rem;
+            }
+
+            body.rtl #scrollToTopBtn {
+                right: auto !important;
+                left: 20px !important;
+            }
+        }
+
+        /* --- SWIPER GALLERY LIGHTBOX MODAL SYSTEM --- */
+        .gallery-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(44, 27, 24, 0.95);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .gallery-lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 100002;
+            transition: transform 0.2s;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1);
+        }
+
+        body.rtl .lightbox-close {
+            right: auto;
+            left: 35px;
+        }
+
+        .swiper-container-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 0;
+            overflow: hidden;
+        }
+
+        .gallery-swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .gallery-swiper .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 400px;
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-swiper .swiper-slide {
+                width: 220px;
+                height: 300px;
+            }
+
+            .lightbox-close {
+                top: 15px;
+                right: 20px;
+                font-size: 2rem;
+            }
+
+            body.rtl .lightbox-close {
+                right: auto;
+                left: 20px;
+            }
+        }
+
+        /* Swiper Customize Controls */
+        .gallery-swiper .swiper-pagination-bullet {
+            background: var(--off-white);
+            opacity: 0.5;
+        }
+
+        .gallery-swiper .swiper-pagination-bullet-active {
+            background: var(--gold) !important;
+            opacity: 1;
+        }
+
+        .gallery-swiper .swiper-button-next,
+        .gallery-swiper .swiper-button-prev {
+            color: var(--gold) !important;
+        }
     </style>
 </head>
 
@@ -411,7 +528,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" id="nav-home" class="nav-item">HOME</a></li>
                 <li><a href="finishing.html" id="nav-finishing" class="nav-item">FINISHING</a></li>
-            
+
                 <li class="dropdown">
                     <a href="supplies&trading.html" id="nav-supplies" class="nav-item">SUPPLIES & TRADING
                         <small>▾</small></a>
@@ -422,7 +539,7 @@
                         <a href="supplies&trading.html#venus" id="sub-ven">Venus</a>
                     </div>
                 </li>
-            
+
                 <li class="dropdown">
                     <a href="lighting.html" id="nav-lighting" class="nav-item">LIGHTING <small>▾</small></a>
                     <div class="dropdown-content">
@@ -431,7 +548,7 @@
                         <a href="lighting.html#Outdor" id="sub-outdor">Outdor Lighting</a>
                     </div>
                 </li>
-            
+
                 <li class="dropdown">
                     <a href="components.html" id="nav-components" class="nav-item">COMPONENTS <small>▾</small></a>
                     <div class="dropdown-content">
@@ -439,7 +556,7 @@
                         <a href="components.html#Exhaust Fans" id="sub-fans">Exhaust Fans</a>
                     </div>
                 </li>
-            
+
                 <li><button class="lang-switch" id="langBtn">EN / AR</button></li>
             </ul>
         </nav>
@@ -461,10 +578,28 @@
         </div>
     </main>
 
+    <div class="gallery-lightbox" id="galleryLightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <div class="swiper-container-wrapper">
+            <div class="swiper gallery-swiper" id="swiperInstance">
+                <div class="swiper-wrapper" id="swiperWrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
+        // Track generated arrays globally to populate the slider accurately
+        let electricalImages = [];
+        let exhaustImages = [];
+
         function openTab(evt, id) {
             document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+            document.querySelectorAll('.tab-border, .tab-btn').forEach(tb => tb.classList.remove('active'));
             evt.currentTarget.classList.add('active');
             document.getElementById('tab-' + id).classList.add('active');
         }
@@ -472,20 +607,93 @@
         function generateGallery(containerId, folder, prefix, limit) {
             const grid = document.getElementById(containerId);
             grid.innerHTML = '';
+            const tempArray = [];
+
             for (let i = 1; i <= limit; i++) {
+                const imgPath = `${folder}/${prefix}${i}.jpeg`;
+                tempArray.push(imgPath);
+
                 const card = document.createElement('div');
                 card.className = 'gallery-card';
+                // Store index references onto individual items
+                card.setAttribute('data-index', i - 1);
+                card.setAttribute('data-group', prefix === 'elect' ? 'electrical' : 'exhaust');
+
                 const img = document.createElement('div');
                 img.className = 'gallery-img';
-                img.style.backgroundImage = `url('${folder}/${prefix}${i}.jpeg')`;
+                img.style.backgroundImage = `url('${imgPath}')`;
+
                 card.appendChild(img);
+
+                // Lightbox activation trigger click handling
+                card.addEventListener('click', function () {
+                    openLightbox(parseInt(this.getAttribute('data-index')), this.getAttribute('data-group'));
+                });
+
                 grid.appendChild(card);
             }
+
+            if (prefix === 'elect') electricalImages = tempArray;
+            else exhaustImages = tempArray;
         }
 
         // Initialize dynamic galleries with specified paths and loops
         generateGallery('grid-electrical', 'Elect', 'elect', 31);
         generateGallery('grid-exhaust', 'Fans', 'fan', 7);
+
+        /* Lightbox Slider Lifecycle Logic */
+        const lightbox = document.getElementById('galleryLightbox');
+        const swiperWrapper = document.getElementById('swiperWrapper');
+        let swiper = null;
+
+        function openLightbox(startIndex, group) {
+            const targetImages = group === 'electrical' ? electricalImages : exhaustImages;
+            swiperWrapper.innerHTML = '';
+
+            targetImages.forEach(src => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.style.backgroundImage = `url('${src}')`;
+                swiperWrapper.appendChild(slide);
+            });
+
+            lightbox.classList.add('open');
+
+            // Initialize or update Swiper instance with Video's 3D Coverflow params
+            if (swiper) swiper.destroy(true, true);
+
+            swiper = new Swiper('#swiperInstance', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                initialSlide: startIndex,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+
+        // Close lightbox controllers
+        document.getElementById('lightboxClose').addEventListener('click', () => {
+            lightbox.classList.remove('open');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.classList.remove('open');
+        });
 
         // Language Switcher Logic
         const langBtn = document.getElementById('langBtn');
@@ -537,7 +745,9 @@
                 el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
             });
         });
-    
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const scrollBtn = document.getElementById("scrollToTopBtn");
             const menuToggle = document.getElementById("menuToggle");

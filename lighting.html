@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lighting | Elegant Home</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap"
-        rel="stylesheet">
+        href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap\"
+        rel=\"stylesheet\">
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
@@ -162,12 +164,13 @@
         }
 
         /* RTL Navbar Flow Directions */
-         body.rtl .nav-container {
-             flex-direction: row;
-         }
-         body.rtl .nav-links {
-             flex-direction: row-reverse;
-         }
+        body.rtl .nav-container {
+            flex-direction: row;
+        }
+
+        body.rtl .nav-links {
+            flex-direction: row-reverse;
+        }
 
         /* --- PORTFOLIO GALLERY STYLES --- */
         .tabs-section {
@@ -222,6 +225,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .gallery-card:hover {
@@ -236,6 +240,84 @@
             background-repeat: no-repeat;
             background-position: center;
             border-radius: 3px;
+        }
+
+        /* --- SWIPER LIGHTBOX MODAL GALLERY --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 10, 9, 0.95);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 2100;
+            transition: transform 0.3s;
+        }
+
+        .close-lightbox:hover {
+            transform: scale(1.1);
+        }
+
+        body.rtl .close-lightbox {
+            right: auto;
+            left: 30px;
+        }
+
+        .swiper-container-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 320px;
+            height: 420px;
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            background-color: var(--dark-brown);
+        }
+
+        /* Custom styling for Swiper elements to match palette */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--gold) !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--gold) !important;
         }
 
         /* Scroll to Top Button Styling */
@@ -284,7 +366,7 @@
             left: 30px;
         }
 
-       
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -387,7 +469,12 @@
                 height: 160px;
             }
 
-             #scrollToTopBtn {
+            .swiper-slide {
+                width: 240px;
+                height: 320px;
+            }
+
+            #scrollToTopBtn {
                 bottom: 20px;
                 right: 20px;
                 width: 44px;
@@ -421,7 +508,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" id="nav-home" class="nav-item">HOME</a></li>
                 <li><a href="finishing.html" id="nav-finishing" class="nav-item">FINISHING</a></li>
-            
+
                 <li class="dropdown">
                     <a href="supplies&trading.html" id="nav-supplies" class="nav-item">SUPPLIES & TRADING
                         <small>▾</small></a>
@@ -432,7 +519,7 @@
                         <a href="supplies&trading.html#venus" id="sub-ven">Venus</a>
                     </div>
                 </li>
-            
+
                 <li class="dropdown">
                     <a href="lighting.html" id="nav-lighting" class="nav-item">LIGHTING <small>▾</small></a>
                     <div class="dropdown-content">
@@ -441,7 +528,7 @@
                         <a href="lighting.html#Outdor" id="sub-outdor">Outdor Lighting</a>
                     </div>
                 </li>
-            
+
                 <li class="dropdown">
                     <a href="components.html" id="nav-components" class="nav-item">COMPONENTS <small>▾</small></a>
                     <div class="dropdown-content">
@@ -449,7 +536,7 @@
                         <a href="components.html#Exhaust Fans" id="sub-fans">Exhaust Fans</a>
                     </div>
                 </li>
-            
+
                 <li><button class="lang-switch" id="langBtn">EN / AR</button></li>
             </ul>
         </nav>
@@ -475,8 +562,28 @@
             <div class="gallery-grid" id="grid-outdoor"></div>
         </div>
     </main>
+
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="close-lightbox" id="closeLightbox">&times;</button>
+        <div class="swiper-container-wrapper">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper" id="swiperWrapper">
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+
     <button id="scrollToTopBtn" aria-label="Scroll to top" title="Go to top">✦</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
+        // Array to hold current context's structural elements
+        let currentGalleryData = [];
+
         function openTab(evt, id) {
             document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
@@ -488,13 +595,32 @@
             const grid = document.getElementById(containerId);
             grid.innerHTML = '';
             for (let i = 1; i <= limit; i++) {
+                const imgUrl = `${folder}/${prefix}${i}.jpeg`;
+
                 const card = document.createElement('div');
                 card.className = 'gallery-card';
+
+                // Track details to build the dynamic slider safely
+                card.setAttribute('data-index', i - 1);
+                card.setAttribute('data-folder', folder);
+                card.setAttribute('data-prefix', prefix);
+                card.setAttribute('data-limit', limit);
+
                 const img = document.createElement('div');
                 img.className = 'gallery-img';
-                img.style.backgroundImage = `url('${folder}/${prefix}${i}.jpeg')`;
+                img.style.backgroundImage = `url('${imgUrl}')`;
                 card.appendChild(img);
                 grid.appendChild(card);
+
+                // Add Click Event Listener for individual cards to launch Swiper Slider
+                card.addEventListener('click', function () {
+                    const clickedIndex = parseInt(this.getAttribute('data-index'));
+                    const currentFolder = this.getAttribute('data-folder');
+                    const currentPrefix = this.getAttribute('data-prefix');
+                    const currentLimit = parseInt(this.getAttribute('data-limit'));
+
+                    openLightboxSlider(clickedIndex, currentFolder, currentPrefix, currentLimit);
+                });
             }
         }
 
@@ -502,6 +628,67 @@
         generateGallery('grid-led', 'LEDLight', 'led', 26);
         generateGallery('grid-indoor', 'IndoorLight', 'indor', 36);
         generateGallery('grid-outdoor', 'OutdoorLight', 'outdor', 14);
+
+        // --- SWIPER LIGHTBOX CONTROLLER LOGIC ---
+        const lightboxOverlay = document.getElementById('lightboxOverlay');
+        const swiperWrapper = document.getElementById('swiperWrapper');
+        const closeLightbox = document.getElementById('closeLightbox');
+        let swiperInstance = null;
+
+        function openLightboxSlider(activeIndex, folder, prefix, limit) {
+            // Clear prior slides cleanly
+            swiperWrapper.innerHTML = '';
+
+            // Inject the dynamic subset list mirroring clicked tab category bounds
+            for (let i = 1; i <= limit; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.style.backgroundImage = `url('${folder}/${prefix}${i}.jpeg')`;
+                swiperWrapper.appendChild(slide);
+            }
+
+            // Show container overlay nicely
+            lightboxOverlay.classList.add('active');
+
+            // Initialize or update Swiper layout matching the exact parameters seen in the video
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true);
+            }
+
+            swiperInstance = new Swiper('.mySwiper', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                initialSlide: activeIndex,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+
+        // Close functions
+        closeLightbox.addEventListener('click', () => {
+            lightboxOverlay.classList.remove('active');
+        });
+
+        lightboxOverlay.addEventListener('click', (e) => {
+            if (e.target === lightboxOverlay) {
+                lightboxOverlay.classList.remove('active');
+            }
+        });
 
         // Lang Switch Logic precisely styled like supplies&trading.html
         const langBtn = document.getElementById('langBtn');
@@ -512,7 +699,7 @@
             document.body.classList.toggle('rtl', currentLang === 'ar');
             langBtn.textContent = (currentLang === 'en') ? 'AR' : 'EN';
 
-             if (currentLang === 'ar') {
+            if (currentLang === 'ar') {
                 document.getElementById('brand-name').textContent = "الجينت";
                 document.getElementById('brand-sub').textContent = "هوم";
                 document.getElementById('nav-home').textContent = "الرئيسية";
@@ -553,7 +740,7 @@
                 el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
             });
         });
-    
+
         document.addEventListener("DOMContentLoaded", function () {
             const scrollBtn = document.getElementById("scrollToTopBtn");
             const menuToggle = document.getElementById("menuToggle");
