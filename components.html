@@ -387,20 +387,7 @@
             left: 30px !important;
         }
 
-        @media (max-width: 768px) {
-            #scrollToTopBtn {
-                bottom: 20px !important;
-                right: 20px !important;
-                width: 46px;
-                height: 46px;
-                font-size: 1.3rem;
-            }
-
-            body.rtl #scrollToTopBtn {
-                right: auto !important;
-                left: 20px !important;
-            }
-        }
+    
     </style>
 </head>
 
@@ -550,9 +537,7 @@
                 el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
             });
         });
-    </script>
-
-    <script>
+    
         document.addEventListener("DOMContentLoaded", function () {
             const scrollBtn = document.getElementById("scrollToTopBtn");
             const menuToggle = document.getElementById("menuToggle");

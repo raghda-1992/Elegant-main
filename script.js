@@ -53,6 +53,7 @@ const content = {
 
 document.getElementById('langBtn').addEventListener('click', () => {
     currentLang = currentLang === 'en' ? 'ar' : 'en';
+    localStorage.setItem('lang', currentLang);
  
     // Set the page direction and class for styling
     document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
