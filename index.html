@@ -180,6 +180,23 @@
     <button id="scrollToTopBtn" aria-label="Scroll to top" title="Go to top">✦</button>
 
     <style>
+        /* Specific elements color configuration to fix mobile and tablet visibility */
+        header {
+            background-color: #D2C1B6 !important;
+        }
+
+        .hero-text h4 {
+            color: #D2C1B6 !important;
+        }
+
+        .hero-text h1 i {
+            color: #D2C1B6 !important;
+        }
+
+        .about-header h2 {
+            color: #D2C1B6 !important;
+        }
+
         /* Ensures the brand setup remains pinned horizontally to the left regardless of RTL context states */
         body.rtl .nav-container {
             flex-direction: row !important;
@@ -384,7 +401,12 @@
         }
 
         @media (max-width: 991px) {
-             
+
+            /* Apply custom backgrounds on smaller screen queries to guarantee styling override */
+            header {
+                background-color: #D2C1B6 !important;
+            }
+
             .menu-toggle {
                 display: block;
             }
@@ -433,7 +455,7 @@
             const menuToggle = document.getElementById("menuToggle");
             const navLinks = document.getElementById("navLinks");
             const socialItems = document.querySelectorAll(".video-social-item");
-            
+
             // Mobile menu toggle click handling
             menuToggle.addEventListener("click", function () {
                 navLinks.classList.toggle("active");
@@ -476,9 +498,9 @@
                     socialItems.forEach(item => item.classList.remove("expanded"));
                 }
             }, { passive: true });
-            
+
         });
-        
+
     </script>
 
     <script src="script.js"></script>
