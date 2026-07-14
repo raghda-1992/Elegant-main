@@ -6,7 +6,7 @@
     --luxury-brown: #3D2817;
     --soft-cream: #F5F2ED;
     --white: #FFFFFF;
-    --node:#d3c5b8;
+    --node:#D2C1B6;
 
     /* Functional Colors */
     --dark-espresso: #5c4b41;
@@ -43,7 +43,7 @@ body {
 
 /* --- LUXURY HEADER & NAVBAR --- */
 header { 
-    background: #d3c5b8; 
+    background: #D2C1B6; 
     padding: 15px 0;
     box-shadow: 0 4px 20px rgba(61, 40, 23, 0.05);
     position: sticky;
@@ -195,7 +195,7 @@ header {
 }
 
 .hero-text h4 {
-    color: var(--node);
+    color: #D2C1B6;
     letter-spacing: 4px;
     margin-bottom: 20px;
     font-weight: 500;
@@ -213,7 +213,7 @@ header {
 
 .hero-text h1 i {
     font-weight: 400;
-    color: var(--node);
+    color: #D2C1B6;
 }
 
 .hero-text p {
@@ -287,7 +287,7 @@ header {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
     letter-spacing: 2px;
-    color: #d3c5b8;
+    color: #D2C1B6;
     margin-bottom: 15px;
 }
 
