@@ -6,6 +6,7 @@
     --luxury-brown: #3D2817;
     --soft-cream: #F5F2ED;
     --white: #FFFFFF;
+    --node:#d3c5b8;
 
     /* Functional Colors */
     --dark-espresso: #5c4b41;
@@ -42,7 +43,7 @@ body {
 
 /* --- LUXURY HEADER & NAVBAR --- */
 header { 
-    background: var(--luxury-beige); 
+    background: #d3c5b8; 
     padding: 15px 0;
     box-shadow: 0 4px 20px rgba(61, 40, 23, 0.05);
     position: sticky;
@@ -194,7 +195,7 @@ header {
 }
 
 .hero-text h4 {
-    color: var(--luxury-gold);
+    color: var(--node);
     letter-spacing: 4px;
     margin-bottom: 20px;
     font-weight: 500;
@@ -212,7 +213,7 @@ header {
 
 .hero-text h1 i {
     font-weight: 400;
-    color: var(--luxury-gold);
+    color: var(--node);
 }
 
 .hero-text p {
@@ -286,7 +287,7 @@ header {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
     letter-spacing: 2px;
-    color: #D4C5B9;
+    color: #d3c5b8;
     margin-bottom: 15px;
 }
 
@@ -302,7 +303,7 @@ header {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #555;
+    color: #B8A07A;
     font-weight: 300;
 }
 
@@ -361,13 +362,12 @@ footer {
 .contact-list li {
     margin-bottom: 12px;
     font-size: 0.95rem;
-    color: #ccc;
     display: flex;
     align-items: center;
 }
 
 .phone-num{
-    color: #555;
+    color: #2C1B18;
     font-weight: bold;
 }
 
@@ -376,7 +376,6 @@ footer {
 }
 .contact-list .icon {
     margin-right: 10px;
-    color: #c5a880;
 }
 
 .whatsapp-link {
